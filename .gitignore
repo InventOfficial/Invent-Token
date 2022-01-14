@@ -8,6 +8,8 @@
 */coverage
 */coverage.json
 */typechain
+*/artifacts
+*/cache
 
 #Hardhat files
 contracts/cache
