@@ -1,10 +1,4 @@
-/**
- *Submitted for verification at BscScan.com on 2021-12-13
-*/
-
 /*
-
-
 
 ooooo ooooo      ooo oooooo     oooo oooooooooooo ooooo      ooo ooooooooooooo 
 `888' `888b.     `8'  `888.     .8'  `888'     `8 `888b.     `8' 8'   888   `8 
@@ -130,8 +124,6 @@ library Address {
         }
     }
 }
-
-
 
 abstract contract Ownable is Context {
     address private _owner;
@@ -415,7 +407,6 @@ contract INVENT is Context, IERC20, Ownable {
     uint256 private _fee_liquidity_old = _fee_liquidity;
 
     uint256 public _fee_denominator = 10000;
-
                                      
     IUniswapV2Router02 public immutable uniswapV2Router;
     address public immutable uniswapV2Pair;
@@ -429,7 +420,6 @@ contract INVENT is Context, IERC20, Ownable {
 
     uint256 public sellMultiplier = 200;
 
-
     event MinTokensBeforeSwapUpdated(uint256 minTokensBeforeSwap);
     event SwapAndLiquifyEnabledUpdated(bool enabled);
     event SwapAndLiquify(
@@ -438,6 +428,7 @@ contract INVENT is Context, IERC20, Ownable {
         uint256 tokensIntoLiqudity
         
     );
+
     //  PCSRouter Mainnet = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
     // PCSRouter Testnet = 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
     address PCSRouter = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
@@ -535,7 +526,7 @@ contract INVENT is Context, IERC20, Ownable {
 
     // Interface imported 
 
-        function ___tokenInfo () public view returns(
+    function ___tokenInfo () public view returns(
         uint8 Decimals,
         uint256 MaxTxAmount,
         uint256 MaxWalletToken,
@@ -550,7 +541,6 @@ contract INVENT is Context, IERC20, Ownable {
     }
 
     function ___feesInfo () public view returns(
-        
         uint256 NumTokensSellToAddToLiquidity,
         uint256 contractTokenBalance,
         uint256 Reflection_tokens_stored
@@ -579,7 +569,7 @@ contract INVENT is Context, IERC20, Ownable {
             _wallet_buyback, _wallet_burn, _wallet_marketing);
     }
 
-/*  Wallet Management  */
+    /*  Wallet Management  */
 
     function Change_Wallet_Marketing (address newWallet) external onlyOwner() {
         _wallet_marketing = payable(newWallet);
@@ -594,7 +584,7 @@ contract INVENT is Context, IERC20, Ownable {
     }
 
 
-/* Interface Read & Write Functions --- Reflection Specific */
+    /* Interface Read & Write Functions --- Reflection Specific */
 
     function deliver(uint256 tAmount) public {
         address sender = _msgSender();
@@ -649,7 +639,7 @@ contract INVENT is Context, IERC20, Ownable {
         return _isExcluded[account];
     }
 
-/* Interface Read & Write Functions */
+    /* Interface Read & Write Functions */
 
     // switch Trading
     function tradingStatus(bool _status) public onlyOwner {
@@ -694,7 +684,7 @@ contract INVENT is Context, IERC20, Ownable {
     }
     
 
-/** All list management functions BEGIN*/
+    /** All list management functions BEGIN*/
 
     function s_manageExcludeFromFee(address[] calldata addresses, bool status) external onlyOwner {
         for (uint256 i; i < addresses.length; ++i) {
@@ -722,12 +712,9 @@ contract INVENT is Context, IERC20, Ownable {
     
     /** All list management functions END*/
 
+    // Liquidity and contract Balance functions
 
-
-
-// Liquidity and contract Balance functions
-
-// convert all stored tokens for LP into LP Pairs
+    // convert all stored tokens for LP into LP Pairs
     function convertLiquidityBalance(uint256 tokensToConvert) public onlyOwner {
 
         uint256 contractTokenBalance = balanceOf(address(this));
@@ -742,13 +729,13 @@ contract INVENT is Context, IERC20, Ownable {
         swapAndLiquify(tokensToConvert);
     }
 
-// convert all stored tokens for LP into LP Pairs
+    // convert all stored tokens for LP into LP Pairs
     function purgeContractBalance() public {
         require(msg.sender == owner() || msg.sender == _wallet_marketing, "Not authorized to perform this");
          _wallet_marketing.transfer(address(this).balance);
     }
 
-// Reflect Finance core code
+    // Reflect Finance core code
 
     function _getRate() private view returns(uint256) {
         (uint256 rSupply, uint256 tSupply) = _getCurrentSupply();
@@ -766,6 +753,7 @@ contract INVENT is Context, IERC20, Ownable {
         if (rSupply < (_supply_reflected/_supply_total)) return (_supply_reflected, _supply_total);
         return (rSupply, tSupply);
     }
+
     function _getValues(uint256 tAmount, bool isSell) private view returns (
         uint256 rAmount, uint256 rTransferAmount, uint256 rReflection,
         uint256 tTransferAmount,uint256 tBurn, uint256 tMarketing, uint256 tLiquidity, uint256 tBuyback, uint256 tReflection) {
@@ -779,16 +767,12 @@ contract INVENT is Context, IERC20, Ownable {
         tReflection     = ( tAmount * _fee_reflection ) * multiplier  / (_fee_denominator * 100);
 
         tTransferAmount = tAmount - (tBurn + tMarketing + tLiquidity + tBuyback + tReflection);
-
         rReflection     = tReflection * _getRate();
-
         rAmount         = tAmount * _getRate();
-
         rTransferAmount = tTransferAmount * _getRate();
-
     }
-    function _fees_to_bnb_process( address payable wallet, uint256 tokensToConvert) private lockTheSwap {
 
+    function _fees_to_bnb_process( address payable wallet, uint256 tokensToConvert) private lockTheSwap {
         uint256 rTokensToConvert = tokensToConvert * _getRate();
 
         _balance_reflected[wallet]    = _balance_reflected[wallet]  - rTokensToConvert;
@@ -803,12 +787,11 @@ contract INVENT is Context, IERC20, Ownable {
 
     }
 
-// Fee & Wallet Related
+    // Fee & Wallet Related
 
     function fees_to_bnb_manual(uint256 tokensToConvert, address payable feeWallet, uint256 minBalanceToKeep) external onlyOwner {
         _fees_to_bnb(tokensToConvert,feeWallet,minBalanceToKeep);
     }
-
 
     function _fees_to_bnb(uint256 tokensToConvert, address payable feeWallet, uint256 minBalanceToKeep) private {
         // case 1: 0 tokens to convert, exit the function
@@ -827,7 +810,6 @@ contract INVENT is Context, IERC20, Ownable {
         }
     }
 
-
     function _takeFee(uint256 feeAmount, address receiverWallet) private {
         uint256 reflectedReeAmount = feeAmount * _getRate();
         _balance_reflected[receiverWallet] = _balance_reflected[receiverWallet] + reflectedReeAmount;
@@ -839,7 +821,6 @@ contract INVENT is Context, IERC20, Ownable {
 
         emit Transfer(msg.sender, receiverWallet, feeAmount);
     }
-
 
     function _takefees_Liquidity(uint256 amount) private {
         _takeFee(amount,address(this));
@@ -865,14 +846,13 @@ contract INVENT is Context, IERC20, Ownable {
         _contractReflectionStored = _contractReflectionStored + tFee;
     }
 
-// Made all parameters in alphabetical order
+    // Made all parameters in alphabetical order
     function _setAllFees(uint256 burnFees, uint256 marketingFee, uint256 liquidityFees, uint256 buybackFee, uint256 reflectionFees) private {
         _fee_burn           = burnFees;
         _fee_marketing        = marketingFee;
         _fee_liquidity      = liquidityFees;
         _fee_buyback           = buybackFee;
         _fee_reflection     = reflectionFees;
-        
     }
 
     function set_sell_multiplier(uint256 Multiplier) external onlyOwner{
@@ -889,9 +869,6 @@ contract INVENT is Context, IERC20, Ownable {
         _fee_marketing_min_bal    = marketing_fee_minimum_balance;
     }
 
-
-
-
     // set all fees in one go, we dont need 4 functions!
     function set_All_Fees(uint256 Buyback_Fee, uint256 Burn_Fees, uint256 Liquidity_Fees, uint256 Reflection_Fees, uint256 MarketingFee) external onlyOwner {
         uint256 total_fees = Burn_Fees + MarketingFee + Liquidity_Fees +  Buyback_Fee + Reflection_Fees;
@@ -899,12 +876,11 @@ contract INVENT is Context, IERC20, Ownable {
         _setAllFees( Burn_Fees, MarketingFee, Liquidity_Fees, Buyback_Fee, Reflection_Fees);
     }
 
-
     function removeAllFee() private {
         _fee_burn_old           = _fee_burn;
-        _fee_marketing_old        = _fee_marketing;
+        _fee_marketing_old      = _fee_marketing;
         _fee_liquidity_old      = _fee_liquidity;
-        _fee_buyback_old           = _fee_buyback;
+        _fee_buyback_old        = _fee_buyback;
         _fee_reflection_old     = _fee_reflection;
 
         _setAllFees(0,0,0,0,0);
@@ -914,11 +890,8 @@ contract INVENT is Context, IERC20, Ownable {
         _setAllFees(_fee_burn_old, _fee_marketing_old, _fee_liquidity_old, _fee_buyback_old, _fee_reflection_old);
     }
 
-
-
     // this one sends to dead address
     function burn_tokens_to_dead(address wallet, uint256 tokensToConvert) external onlyOwner{
-
         require(msg.sender == owner() || msg.sender == wallet, "Not authorized to burn");
 
         uint256 rTokensToConvert = tokensToConvert * _getRate();
@@ -937,10 +910,9 @@ contract INVENT is Context, IERC20, Ownable {
         _balance_reflected[deadAddress]     = _balance_reflected[deadAddress]    + rTokensToConvert;
 
         emit Transfer(wallet, deadAddress, tokensToConvert);
-
     }
 
-// Liquidity functions
+    // Liquidity functions
 
     function swapAndLiquify(uint256 tokensToSwap) private lockTheSwap {
         uint256 tokensHalf = tokensToSwap/2;
@@ -984,7 +956,6 @@ contract INVENT is Context, IERC20, Ownable {
         );
     }
 
-
     function addLiquidity(uint256 tokenAmount, uint256 ethAmount) private {
         _approve(address(this), address(uniswapV2Router), tokenAmount);
         uniswapV2Router.addLiquidityETH{value: ethAmount}(
@@ -1014,7 +985,6 @@ contract INVENT is Context, IERC20, Ownable {
         require(to != address(0), "ERC20: transfer to the zero address");
         // require(amount > 0, "Transfer amount must be greater than zero");
 
-
         //max wallet
         if (to != owner() && to != address(this) && to != address(deadAddress) && to != uniswapV2Pair && to != _wallet_marketing && to != _wallet_buyback){
             uint256 heldTokens = balanceOf(to);
@@ -1023,7 +993,6 @@ contract INVENT is Context, IERC20, Ownable {
         if(from != owner() && to != owner() && !_isWhitelisted[from] && !_isWhitelisted[to]){
             require(tradingOpen,"Trading not open yet");
         }
-
 
         // cooldown timer
         if (from == uniswapV2Pair &&
@@ -1120,5 +1089,4 @@ contract INVENT is Context, IERC20, Ownable {
 
     //receive BNB from PancakeSwap Router
     receive() external payable {}
-
 }
