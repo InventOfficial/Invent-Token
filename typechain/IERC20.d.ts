@@ -67,12 +67,10 @@ interface IERC20Interface extends ethers.utils.Interface {
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
-    "TransferDetails(address,address,uint256,uint256,uint256,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TransferDetails"): EventFragment;
 }
 
 export type ApprovalEvent = TypedEvent<
@@ -85,17 +83,6 @@ export type ApprovalEvent = TypedEvent<
 
 export type TransferEvent = TypedEvent<
   [string, string, BigNumber] & { from: string; to: string; value: BigNumber }
->;
-
-export type TransferDetailsEvent = TypedEvent<
-  [string, string, BigNumber, BigNumber, BigNumber, BigNumber] & {
-    from: string;
-    to: string;
-    total_Amount: BigNumber;
-    reflected_amount: BigNumber;
-    total_TransferAmount: BigNumber;
-    reflected_TransferAmount: BigNumber;
-  }
 >;
 
 export class IERC20 extends BaseContract {
@@ -267,44 +254,6 @@ export class IERC20 extends BaseContract {
     ): TypedEventFilter<
       [string, string, BigNumber],
       { from: string; to: string; value: BigNumber }
-    >;
-
-    "TransferDetails(address,address,uint256,uint256,uint256,uint256)"(
-      from?: string | null,
-      to?: string | null,
-      total_Amount?: null,
-      reflected_amount?: null,
-      total_TransferAmount?: null,
-      reflected_TransferAmount?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber, BigNumber, BigNumber, BigNumber],
-      {
-        from: string;
-        to: string;
-        total_Amount: BigNumber;
-        reflected_amount: BigNumber;
-        total_TransferAmount: BigNumber;
-        reflected_TransferAmount: BigNumber;
-      }
-    >;
-
-    TransferDetails(
-      from?: string | null,
-      to?: string | null,
-      total_Amount?: null,
-      reflected_amount?: null,
-      total_TransferAmount?: null,
-      reflected_TransferAmount?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber, BigNumber, BigNumber, BigNumber],
-      {
-        from: string;
-        to: string;
-        total_Amount: BigNumber;
-        reflected_amount: BigNumber;
-        total_TransferAmount: BigNumber;
-        reflected_TransferAmount: BigNumber;
-      }
     >;
   };
 

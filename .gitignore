@@ -4,12 +4,17 @@
 **/._.DS_STORE
 
 */node_modules
+*/typechain
+/typechain
+*.env
 */.env
 */coverage
 */coverage.json
 */typechain
 */artifacts
+/artifacts
 */cache
+/cache
 
 #Hardhat files
 contracts/cache

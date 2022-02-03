@@ -1,9 +1,11 @@
 {
-  "name": "contracts",
+  "name": "invent_contracts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy-invent": "npx hardhat deploy-invent --network bscTestnet",
+    "deploy-presale": "npx hardhat deploy-presale --network bscTestnet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

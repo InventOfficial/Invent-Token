@@ -13,6 +13,22 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "Ownable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
+      name: "ERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20__factory>;
+    getContractFactory(
+      name: "IERC20Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Metadata__factory>;
+    getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
       name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
@@ -40,7 +56,331 @@ declare module "hardhat/types/runtime" {
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
+      name: "InventPresale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.InventPresale__factory>;
+    getContractFactory(
+      name: "InventPresaleToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.InventPresaleToken__factory>;
+    getContractFactory(
+      name: "CapperRole",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CapperRole__factory>;
+    getContractFactory(
+      name: "MinterRole",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MinterRole__factory>;
+    getContractFactory(
+      name: "PauserRole",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PauserRole__factory>;
+    getContractFactory(
+      name: "SignerRole",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SignerRole__factory>;
+    getContractFactory(
+      name: "WhitelistAdminRole",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WhitelistAdminRole__factory>;
+    getContractFactory(
+      name: "WhitelistedRole",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WhitelistedRole__factory>;
+    getContractFactory(
+      name: "Crowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Crowdsale__factory>;
+    getContractFactory(
+      name: "FinalizableCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.FinalizableCrowdsale__factory>;
+    getContractFactory(
+      name: "UnstableTokenVault",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UnstableTokenVault__factory>;
+    getContractFactory(
+      name: "PostDeliveryCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PostDeliveryCrowdsale__factory>;
+    getContractFactory(
+      name: "RefundableCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.RefundableCrowdsale__factory>;
+    getContractFactory(
+      name: "RefundablePostDeliveryCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.RefundablePostDeliveryCrowdsale__factory>;
+    getContractFactory(
+      name: "AllowanceCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AllowanceCrowdsale__factory>;
+    getContractFactory(
+      name: "MintedCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MintedCrowdsale__factory>;
+    getContractFactory(
+      name: "IncreasingPriceCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IncreasingPriceCrowdsale__factory>;
+    getContractFactory(
+      name: "CappedCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CappedCrowdsale__factory>;
+    getContractFactory(
+      name: "IndividuallyCappedCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IndividuallyCappedCrowdsale__factory>;
+    getContractFactory(
+      name: "PausableCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PausableCrowdsale__factory>;
+    getContractFactory(
+      name: "TimedCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TimedCrowdsale__factory>;
+    getContractFactory(
+      name: "WhitelistCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WhitelistCrowdsale__factory>;
+    getContractFactory(
+      name: "ERC20Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Metadata__factory>;
+    getContractFactory(
+      name: "ERC20Migrator",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Migrator__factory>;
+    getContractFactory(
+      name: "ERC20Snapshot",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Snapshot__factory>;
+    getContractFactory(
+      name: "TokenVesting",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TokenVesting__factory>;
+    getContractFactory(
+      name: "SampleCrowdsale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SampleCrowdsale__factory>;
+    getContractFactory(
+      name: "SampleCrowdsaleToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SampleCrowdsaleToken__factory>;
+    getContractFactory(
+      name: "SimpleToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SimpleToken__factory>;
+    getContractFactory(
+      name: "Context",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Context__factory>;
+    getContractFactory(
+      name: "GSNRecipient",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GSNRecipient__factory>;
+    getContractFactory(
+      name: "UnstableERC20PrimaryAdmin",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UnstableERC20PrimaryAdmin__factory>;
+    getContractFactory(
+      name: "GSNRecipientERC20Fee",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GSNRecipientERC20Fee__factory>;
+    getContractFactory(
+      name: "GSNRecipientSignature",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.GSNRecipientSignature__factory>;
+    getContractFactory(
+      name: "IRelayHub",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IRelayHub__factory>;
+    getContractFactory(
+      name: "IRelayRecipient",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IRelayRecipient__factory>;
+    getContractFactory(
+      name: "ERC165",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC165__factory>;
+    getContractFactory(
+      name: "ERC1820Implementer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1820Implementer__factory>;
+    getContractFactory(
+      name: "IERC165",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC165__factory>;
+    getContractFactory(
+      name: "IERC1820Implementer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1820Implementer__factory>;
+    getContractFactory(
+      name: "IERC1820Registry",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1820Registry__factory>;
+    getContractFactory(
+      name: "Pausable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Pausable__factory>;
+    getContractFactory(
+      name: "Ownable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
+      name: "Secondary",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Secondary__factory>;
+    getContractFactory(
+      name: "ConditionalEscrow",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConditionalEscrow__factory>;
+    getContractFactory(
+      name: "Escrow",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Escrow__factory>;
+    getContractFactory(
+      name: "RefundEscrow",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.RefundEscrow__factory>;
+    getContractFactory(
+      name: "PaymentSplitter",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PaymentSplitter__factory>;
+    getContractFactory(
+      name: "PullPayment",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PullPayment__factory>;
+    getContractFactory(
+      name: "ERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20__factory>;
+    getContractFactory(
+      name: "ERC20Burnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Burnable__factory>;
+    getContractFactory(
+      name: "ERC20Capped",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Capped__factory>;
+    getContractFactory(
+      name: "ERC20Detailed",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Detailed__factory>;
+    getContractFactory(
+      name: "ERC20Mintable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Mintable__factory>;
+    getContractFactory(
+      name: "ERC20Pausable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Pausable__factory>;
+    getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
+      name: "TokenTimelock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TokenTimelock__factory>;
+    getContractFactory(
+      name: "ERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721__factory>;
+    getContractFactory(
+      name: "ERC721Burnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Burnable__factory>;
+    getContractFactory(
+      name: "ERC721Enumerable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Enumerable__factory>;
+    getContractFactory(
+      name: "ERC721Full",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Full__factory>;
+    getContractFactory(
+      name: "ERC721Holder",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Holder__factory>;
+    getContractFactory(
+      name: "ERC721Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Metadata__factory>;
+    getContractFactory(
+      name: "ERC721MetadataMintable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721MetadataMintable__factory>;
+    getContractFactory(
+      name: "ERC721Mintable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Mintable__factory>;
+    getContractFactory(
+      name: "ERC721Pausable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Pausable__factory>;
+    getContractFactory(
+      name: "IERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721__factory>;
+    getContractFactory(
+      name: "IERC721Enumerable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Enumerable__factory>;
+    getContractFactory(
+      name: "IERC721Full",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Full__factory>;
+    getContractFactory(
+      name: "IERC721Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Metadata__factory>;
+    getContractFactory(
+      name: "IERC721Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Receiver__factory>;
+    getContractFactory(
+      name: "ERC777",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC777__factory>;
+    getContractFactory(
+      name: "IERC777",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC777__factory>;
+    getContractFactory(
+      name: "IERC777Recipient",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC777Recipient__factory>;
+    getContractFactory(
+      name: "IERC777Sender",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC777Sender__factory>;
+    getContractFactory(
+      name: "ReentrancyGuard",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ReentrancyGuard__factory>;
 
+    getContractAt(
+      name: "Ownable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Ownable>;
+    getContractAt(
+      name: "ERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20>;
+    getContractAt(
+      name: "IERC20Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Metadata>;
+    getContractAt(
+      name: "IERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>;
     getContractAt(
       name: "IERC20",
       address: string,
@@ -76,6 +416,386 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Ownable>;
+    getContractAt(
+      name: "InventPresale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.InventPresale>;
+    getContractAt(
+      name: "InventPresaleToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.InventPresaleToken>;
+    getContractAt(
+      name: "CapperRole",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CapperRole>;
+    getContractAt(
+      name: "MinterRole",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MinterRole>;
+    getContractAt(
+      name: "PauserRole",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PauserRole>;
+    getContractAt(
+      name: "SignerRole",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SignerRole>;
+    getContractAt(
+      name: "WhitelistAdminRole",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WhitelistAdminRole>;
+    getContractAt(
+      name: "WhitelistedRole",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WhitelistedRole>;
+    getContractAt(
+      name: "Crowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Crowdsale>;
+    getContractAt(
+      name: "FinalizableCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.FinalizableCrowdsale>;
+    getContractAt(
+      name: "UnstableTokenVault",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UnstableTokenVault>;
+    getContractAt(
+      name: "PostDeliveryCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PostDeliveryCrowdsale>;
+    getContractAt(
+      name: "RefundableCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.RefundableCrowdsale>;
+    getContractAt(
+      name: "RefundablePostDeliveryCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.RefundablePostDeliveryCrowdsale>;
+    getContractAt(
+      name: "AllowanceCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AllowanceCrowdsale>;
+    getContractAt(
+      name: "MintedCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MintedCrowdsale>;
+    getContractAt(
+      name: "IncreasingPriceCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IncreasingPriceCrowdsale>;
+    getContractAt(
+      name: "CappedCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CappedCrowdsale>;
+    getContractAt(
+      name: "IndividuallyCappedCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IndividuallyCappedCrowdsale>;
+    getContractAt(
+      name: "PausableCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PausableCrowdsale>;
+    getContractAt(
+      name: "TimedCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TimedCrowdsale>;
+    getContractAt(
+      name: "WhitelistCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WhitelistCrowdsale>;
+    getContractAt(
+      name: "ERC20Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Metadata>;
+    getContractAt(
+      name: "ERC20Migrator",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Migrator>;
+    getContractAt(
+      name: "ERC20Snapshot",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Snapshot>;
+    getContractAt(
+      name: "TokenVesting",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TokenVesting>;
+    getContractAt(
+      name: "SampleCrowdsale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SampleCrowdsale>;
+    getContractAt(
+      name: "SampleCrowdsaleToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SampleCrowdsaleToken>;
+    getContractAt(
+      name: "SimpleToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SimpleToken>;
+    getContractAt(
+      name: "Context",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Context>;
+    getContractAt(
+      name: "GSNRecipient",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.GSNRecipient>;
+    getContractAt(
+      name: "UnstableERC20PrimaryAdmin",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UnstableERC20PrimaryAdmin>;
+    getContractAt(
+      name: "GSNRecipientERC20Fee",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.GSNRecipientERC20Fee>;
+    getContractAt(
+      name: "GSNRecipientSignature",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.GSNRecipientSignature>;
+    getContractAt(
+      name: "IRelayHub",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IRelayHub>;
+    getContractAt(
+      name: "IRelayRecipient",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IRelayRecipient>;
+    getContractAt(
+      name: "ERC165",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC165>;
+    getContractAt(
+      name: "ERC1820Implementer",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1820Implementer>;
+    getContractAt(
+      name: "IERC165",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC165>;
+    getContractAt(
+      name: "IERC1820Implementer",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1820Implementer>;
+    getContractAt(
+      name: "IERC1820Registry",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1820Registry>;
+    getContractAt(
+      name: "Pausable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Pausable>;
+    getContractAt(
+      name: "Ownable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Ownable>;
+    getContractAt(
+      name: "Secondary",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Secondary>;
+    getContractAt(
+      name: "ConditionalEscrow",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConditionalEscrow>;
+    getContractAt(
+      name: "Escrow",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Escrow>;
+    getContractAt(
+      name: "RefundEscrow",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.RefundEscrow>;
+    getContractAt(
+      name: "PaymentSplitter",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PaymentSplitter>;
+    getContractAt(
+      name: "PullPayment",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PullPayment>;
+    getContractAt(
+      name: "ERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20>;
+    getContractAt(
+      name: "ERC20Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Burnable>;
+    getContractAt(
+      name: "ERC20Capped",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Capped>;
+    getContractAt(
+      name: "ERC20Detailed",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Detailed>;
+    getContractAt(
+      name: "ERC20Mintable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Mintable>;
+    getContractAt(
+      name: "ERC20Pausable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Pausable>;
+    getContractAt(
+      name: "IERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>;
+    getContractAt(
+      name: "TokenTimelock",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TokenTimelock>;
+    getContractAt(
+      name: "ERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721>;
+    getContractAt(
+      name: "ERC721Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Burnable>;
+    getContractAt(
+      name: "ERC721Enumerable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Enumerable>;
+    getContractAt(
+      name: "ERC721Full",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Full>;
+    getContractAt(
+      name: "ERC721Holder",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Holder>;
+    getContractAt(
+      name: "ERC721Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Metadata>;
+    getContractAt(
+      name: "ERC721MetadataMintable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721MetadataMintable>;
+    getContractAt(
+      name: "ERC721Mintable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Mintable>;
+    getContractAt(
+      name: "ERC721Pausable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Pausable>;
+    getContractAt(
+      name: "IERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721>;
+    getContractAt(
+      name: "IERC721Enumerable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Enumerable>;
+    getContractAt(
+      name: "IERC721Full",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Full>;
+    getContractAt(
+      name: "IERC721Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Metadata>;
+    getContractAt(
+      name: "IERC721Receiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Receiver>;
+    getContractAt(
+      name: "ERC777",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC777>;
+    getContractAt(
+      name: "IERC777",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC777>;
+    getContractAt(
+      name: "IERC777Recipient",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC777Recipient>;
+    getContractAt(
+      name: "IERC777Sender",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC777Sender>;
+    getContractAt(
+      name: "ReentrancyGuard",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ReentrancyGuard>;
 
     // default types
     getContractFactory(

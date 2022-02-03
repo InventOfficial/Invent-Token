@@ -28,6 +28,8 @@ InventCrypto.net
 
 pragma solidity ^0.8.3;
 
+//import "hardhat/console.sol";
+
 interface IERC20 {
     
     function totalSupply() external view returns (uint256);
@@ -390,7 +392,7 @@ contract INVENT is Context, IERC20, Ownable {
     // Marketing AKA Invention Fund
     uint256 public _fee_marketing = 0;
     uint256 private _fee_marketing_old = _fee_marketing;
-    address payable public _wallet_marketing = payable(0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8);
+    address payable public _wallet_marketing;
 
     // Burn Fee
     uint256 public _fee_burn = 0;
@@ -400,7 +402,7 @@ contract INVENT is Context, IERC20, Ownable {
     // for development and community engagement, however labeled as "buyback"
     uint256 public _fee_buyback = 0;
     uint256 private _fee_buyback_old = _fee_buyback;
-    address payable public _wallet_buyback = payable(0x356F3878B2aec668CeF66F0A988f8e5Bd264199d);
+    address payable public _wallet_buyback;
 
     // Auto LP
     uint256 public _fee_liquidity = 0;
@@ -428,11 +430,12 @@ contract INVENT is Context, IERC20, Ownable {
         uint256 tokensIntoLiqudity
         
     );
-
-    //  PCSRouter Mainnet = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
+    
+    // PCSRouter Mainnet = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
     // PCSRouter Testnet = 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
-    address PCSRouter = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
-    address deadAddress = 0x000000000000000000000000000000000000dEaD;
+    address public PCSRouter;       // PancakeSwapRouter v2
+
+    address public deadAddress = 0x000000000000000000000000000000000000dEaD;
     
     modifier lockTheSwap {
         inSwapAndLiquify = true;
@@ -440,13 +443,24 @@ contract INVENT is Context, IERC20, Ownable {
         inSwapAndLiquify = false;
     }
     
-    constructor () {
+    constructor (address _pancakeSwapRouterV2, address _marketingWallet, address _buybackWallet) {
+        PCSRouter = _pancakeSwapRouterV2;
+        _wallet_marketing = payable(_marketingWallet);
+        _wallet_buyback = payable(_buybackWallet);
+
         _balance_reflected[owner()] = _supply_reflected;
         
+        // ERM: TODO:
         // Pancakeswap Router Initialization & Pair creation
+        //IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(PCSRouter);
+        //uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
+        //uniswapV2Router = _uniswapV2Router;
+
+        // ERM: TODO: This is testing code
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(PCSRouter);
-        uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
+        uniswapV2Pair = PCSRouter;
         uniswapV2Router = _uniswapV2Router;
+
 
         _isExcludedFromFee[owner()] = true;
         _isExcludedFromFee[address(this)] = true;

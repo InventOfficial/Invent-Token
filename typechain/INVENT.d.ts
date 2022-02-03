@@ -24,6 +24,7 @@ interface INVENTInterface extends ethers.utils.Interface {
     "Change_Wallet_Burn(address)": FunctionFragment;
     "Change_Wallet_Buyback(address)": FunctionFragment;
     "Change_Wallet_Marketing(address)": FunctionFragment;
+    "PCSRouter()": FunctionFragment;
     "___feesInfo()": FunctionFragment;
     "___tokenInfo()": FunctionFragment;
     "___wallets()": FunctionFragment;
@@ -55,6 +56,7 @@ interface INVENTInterface extends ethers.utils.Interface {
     "convertLiquidityBalance(uint256)": FunctionFragment;
     "cooldownEnabled(bool,uint8)": FunctionFragment;
     "cooldownTimerInterval()": FunctionFragment;
+    "deadAddress()": FunctionFragment;
     "decimals()": FunctionFragment;
     "decreaseAllowance(address,uint256)": FunctionFragment;
     "deliver(uint256)": FunctionFragment;
@@ -109,6 +111,7 @@ interface INVENTInterface extends ethers.utils.Interface {
     functionFragment: "Change_Wallet_Marketing",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "PCSRouter", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "___feesInfo",
     values?: undefined
@@ -225,6 +228,10 @@ interface INVENTInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "cooldownTimerInterval",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "deadAddress",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
@@ -391,6 +398,7 @@ interface INVENTInterface extends ethers.utils.Interface {
     functionFragment: "Change_Wallet_Marketing",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "PCSRouter", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "___feesInfo",
     data: BytesLike
@@ -498,6 +506,10 @@ interface INVENTInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "cooldownTimerInterval",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "deadAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
@@ -763,6 +775,8 @@ export class INVENT extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    PCSRouter(overrides?: CallOverrides): Promise<[string]>;
+
     ___feesInfo(
       overrides?: CallOverrides
     ): Promise<
@@ -915,6 +929,8 @@ export class INVENT extends BaseContract {
     ): Promise<ContractTransaction>;
 
     cooldownTimerInterval(overrides?: CallOverrides): Promise<[number]>;
+
+    deadAddress(overrides?: CallOverrides): Promise<[string]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -1116,6 +1132,8 @@ export class INVENT extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  PCSRouter(overrides?: CallOverrides): Promise<string>;
+
   ___feesInfo(
     overrides?: CallOverrides
   ): Promise<
@@ -1261,6 +1279,8 @@ export class INVENT extends BaseContract {
   ): Promise<ContractTransaction>;
 
   cooldownTimerInterval(overrides?: CallOverrides): Promise<number>;
+
+  deadAddress(overrides?: CallOverrides): Promise<string>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -1462,6 +1482,8 @@ export class INVENT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    PCSRouter(overrides?: CallOverrides): Promise<string>;
+
     ___feesInfo(
       overrides?: CallOverrides
     ): Promise<
@@ -1609,6 +1631,8 @@ export class INVENT extends BaseContract {
     ): Promise<void>;
 
     cooldownTimerInterval(overrides?: CallOverrides): Promise<number>;
+
+    deadAddress(overrides?: CallOverrides): Promise<string>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -1934,6 +1958,8 @@ export class INVENT extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    PCSRouter(overrides?: CallOverrides): Promise<BigNumber>;
+
     ___feesInfo(overrides?: CallOverrides): Promise<BigNumber>;
 
     ___tokenInfo(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2019,6 +2045,8 @@ export class INVENT extends BaseContract {
     ): Promise<BigNumber>;
 
     cooldownTimerInterval(overrides?: CallOverrides): Promise<BigNumber>;
+
+    deadAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -2221,6 +2249,8 @@ export class INVENT extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    PCSRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     ___feesInfo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ___tokenInfo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2330,6 +2360,8 @@ export class INVENT extends BaseContract {
     cooldownTimerInterval(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    deadAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
