@@ -26,9 +26,41 @@ InventCrypto.net
 
 // SPDX-License-Identifier: Unlicensed
 
-pragma solidity ^0.8.3;
+pragma solidity 0.8.3;
 
 //import "hardhat/console.sol";
+
+/**
+    AUDIT NOTES
+        GLOBAL-01:  No dev fix
+        GLOBAL-02:  Fixed (emit events as recommended)
+        GLOBAL-03:  No dev fix
+        GLOBAL-04:  No dev fix
+
+        INV-01:     Fixed (locked compiler version)
+        INV-02:     No dev fix
+        INV-03:     Fixed (check for 0 address)
+        INV-04:     No dev fix (can fix if you want; it's optional)
+        INV-05:     Fixed (removed Change_Wallet_Burn), but can change back if you want
+        INV-06:     No dev fix. Function doesn't appear to be used. Can be used externally possibly. 
+                    Not sure what this function is supposed to do because there's no comments.
+                    Would not recommend messing with this.
+        INV-07:     Fixed (removed s_excludeFromFee). Function was not used anywhere.
+        INV-08:     No dev fix
+        INV-09:     No dev fix
+                    This looks concerning. It gives the owner a manual override in case of a bug or something.
+                    But could be concerning to anyone looking closely at the contract
+        INV-10:     Same comment as INV-09.
+        INV-11:     No dev fix. Recommend just configuring it appropriately.
+        INV-12:     Partial fix. I removed the hard-coded address and added a setter so the owner can set this.
+                    I don't know what that 0x38FEBBB address is. You need to figure out what this is for and (possibly) update it before deploying.
+        INV-13:     No dev fix. This would require a large refactoring which would be more risky than the minor issue this is causing.
+                    Basically it stops the transaction if a wallet is going to have more than the max allowed. 
+                    But it doesn't account for the fact that some of the transfer amount will be reduced due to fees so it's technically incorrect.
+        INV-14:     No dev fix. It's optional. If you want to limit the fees, I can put that in. I think it's fine.
+
+
+ */
 
 interface IERC20 {
     
@@ -422,20 +454,30 @@ contract INVENT is Context, IERC20, Ownable {
 
     uint256 public sellMultiplier = 200;
 
+    // Events...
     event MinTokensBeforeSwapUpdated(uint256 minTokensBeforeSwap);
     event SwapAndLiquifyEnabledUpdated(bool enabled);
     event SwapAndLiquify(
         uint256 tokensSwapped,
         uint256 ethReceived,
-        uint256 tokensIntoLiqudity
-        
+        uint256 tokensIntoLiqudity        
     );
+    event TradingStatusChanged(bool status);
+    event CooldownStatusChanged(bool _status, uint8 _interval);
+    event NumTokensSellToAddToLiquidityChanged(uint256 _numTokensSellToAddToLiquidity);
+    event MaxTxAmountChanged(uint256 _maxTxAmount);
+    event MaxWalletTokenChanged(uint256 _maxWalletToken);
+    event FeeChanged(uint256 burnFees, uint256 marketingFee, uint256 liquidityFees, uint256 buybackFee, uint256 reflectionFees);
+    event SellMultiplierChanged(uint256 Multiplier);
+    event FeeTriggersChanged(uint256 marketing_fee_convert_limit, uint256 buyback_fee_convert_limit);
+    event FeeMinimumBalanceChanged(uint256 marketing_fee_minimum_balance, uint256 buyback_fee_minimum_balance);
     
     // PCSRouter Mainnet = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
     // PCSRouter Testnet = 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
     address public PCSRouter;       // PancakeSwapRouter v2
 
     address public deadAddress = 0x000000000000000000000000000000000000dEaD;
+    address public addLiquidityToAddress = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8;
     
     modifier lockTheSwap {
         inSwapAndLiquify = true;
@@ -586,15 +628,18 @@ contract INVENT is Context, IERC20, Ownable {
     /*  Wallet Management  */
 
     function Change_Wallet_Marketing (address newWallet) external onlyOwner() {
+        require(newWallet != address(0), "newWallet address cannot be 0");
         _wallet_marketing = payable(newWallet);
     }
 
     function Change_Wallet_Buyback (address newWallet) external onlyOwner() {
+        require(newWallet != address(0), "newWallet address cannot be 0");
         _wallet_buyback = payable(newWallet);
     }
 
-    function Change_Wallet_Burn (address newWallet) external onlyOwner() {
-        _wallet_burn = payable(newWallet);
+    function setAddLiquidityToAddress(address newAddress) external onlyOwner() {
+        require(newAddress != address(0), "newAddress address cannot be 0");
+        _addLiquidityToAddress = newAddress;
     }
 
 
@@ -658,32 +703,38 @@ contract INVENT is Context, IERC20, Ownable {
     // switch Trading
     function tradingStatus(bool _status) public onlyOwner {
         tradingOpen = _status;
+        emit TradingStatusChanged(tradingOpen);
     }
 
     // enable cooldown between trades
     function cooldownEnabled(bool _status, uint8 _interval) public onlyOwner {
         buyCooldownEnabled = _status;
         cooldownTimerInterval = _interval;
+        emit CooldownStatusChanged(buyCooldownEnabled, cooldownTimerInterval);
     }
 
     //set the number of tokens required to activate auto-liquidity
     function setNumTokensSellToAddToLiquidityt(uint256 numTokensSellToAddToLiquidity) external onlyOwner() {
         _numTokensSellToAddToLiquidity = numTokensSellToAddToLiquidity;
+        emit NumTokensSellToAddToLiquidityChanged(_numTokensSellToAddToLiquidity);
     }
     
     //set the Max transaction amount (percent of total supply)
     function setMaxTxPercent_base1000(uint256 maxTxPercent) external onlyOwner() {
         _maxTxAmount = (_supply_total * maxTxPercent ) / 1000;
+        emit MaxTxAmountChanged(_maxTxAmount);
     }
     
     //set the Max transaction amount (in tokens)
      function setMaxTxTokens(uint256 maxTxTokens) external onlyOwner() {
         _maxTxAmount = maxTxTokens;
+        emit MaxTxAmountChanged(_maxTxAmount);
     }
     
     //settting the maximum permitted wallet holding (percent of total supply)
      function setMaxWalletPercent_base1000(uint256 maxWallPercent) external onlyOwner() {
         _maxWalletToken = (_supply_total * maxWallPercent ) / 1000;
+        emit MaxWalletTokenChanged(_maxWalletToken);
     }
     
     //settting the maximum permitted wallet holding (in tokens)
@@ -715,12 +766,6 @@ contract INVENT is Context, IERC20, Ownable {
     function s_manageWhitelist(address[] calldata addresses, bool status) external onlyOwner {
         for (uint256 i; i < addresses.length; ++i) {
             _isWhitelisted[addresses[i]] = status;
-        }
-    }
-
-    function s_excludeFromFee(address[] calldata addresses, bool status) external onlyOwner {
-        for (uint256 i; i < addresses.length; ++i) {
-            _isExcludedFromFee[addresses[i]] = status;
         }
     }
     
@@ -863,24 +908,28 @@ contract INVENT is Context, IERC20, Ownable {
     // Made all parameters in alphabetical order
     function _setAllFees(uint256 burnFees, uint256 marketingFee, uint256 liquidityFees, uint256 buybackFee, uint256 reflectionFees) private {
         _fee_burn           = burnFees;
-        _fee_marketing        = marketingFee;
+        _fee_marketing      = marketingFee;
         _fee_liquidity      = liquidityFees;
-        _fee_buyback           = buybackFee;
+        _fee_buyback        = buybackFee;
         _fee_reflection     = reflectionFees;
+        emit FeeChanged(burnFees, marketingFee, liquidityFees, buybackFee, reflectionFees);
     }
 
     function set_sell_multiplier(uint256 Multiplier) external onlyOwner{
-        sellMultiplier = Multiplier;        
+        sellMultiplier = Multiplier;
+        emit SellMultiplierChanged(Multiplier);
     }
 
     function set_All_Fees_Triggers(uint256 marketing_fee_convert_limit, uint256 buyback_fee_convert_limit) external onlyOwner {
         _fee_marketing_convert_limit      = marketing_fee_convert_limit;
         _fee_buyback_convert_limit         = buyback_fee_convert_limit;   
+        emit FeeTriggersChanged(marketing_fee_convert_limit, buyback_fee_convert_limit);
     }
 
     function set_All_Fees_Minimum_Balance(uint256 marketing_fee_minimum_balance, uint256 buyback_fee_minimum_balance) external onlyOwner {
         _fee_buyback_min_bal       = buyback_fee_minimum_balance;
         _fee_marketing_min_bal    = marketing_fee_minimum_balance;
+        emit FeeMinimumBalanceChanged(marketing_fee_minimum_balance, buyback_fee_minimum_balance);
     }
 
     // set all fees in one go, we dont need 4 functions!
@@ -977,7 +1026,7 @@ contract INVENT is Context, IERC20, Ownable {
             tokenAmount,
             0,
             0,
-            0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8,
+            addLiquidityToAddress,
             block.timestamp
         );
     }
