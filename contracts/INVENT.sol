@@ -21,6 +21,8 @@ o888o o8o        `8        `8'       o888ooooood8 o8o        `8      o888o
 
 Invent LLC
 InventCrypto.net
+Token Version 2.1
+Certik Audit Fixes Implemented
 
 */
 
