@@ -476,6 +476,7 @@ contract INVENT is Context, IERC20, Ownable {
     
 	address public PCSRouter = 0x10ED43C718714eb63d5aA57B78B54704E256024E;       // PancakeSwapRouter v2
 	address public deadAddress = 0x000000000000000000000000000000000000dEaD;
+	address public addLiquidityToAddress = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8; //Deployer wallet
     
     
     modifier lockTheSwap {
