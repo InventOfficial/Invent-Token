@@ -21,6 +21,8 @@ o888o o8o        `8        `8'       o888ooooood8 o8o        `8      o888o
 
 Invent LLC
 InventCrypto.net
+Token Version 2.1
+Certik Audit Fixes Implemented
 
 */
 
@@ -47,13 +49,10 @@ pragma solidity 0.8.3;
                     Would not recommend messing with this.
         INV-07:     Fixed (removed s_excludeFromFee). Function was not used anywhere.
         INV-08:     No dev fix
-        INV-09:     No dev fix
-                    This looks concerning. It gives the owner a manual override in case of a bug or something.
-                    But could be concerning to anyone looking closely at the contract
-        INV-10:     Same comment as INV-09.
+        INV-09:     Removed Function
+        INV-10:     Removed Function
         INV-11:     No dev fix. Recommend just configuring it appropriately.
         INV-12:     Partial fix. I removed the hard-coded address and added a setter so the owner can set this.
-                    I don't know what that 0x38FEBBB address is. You need to figure out what this is for and (possibly) update it before deploying.
         INV-13:     No dev fix. This would require a large refactoring which would be more risky than the minor issue this is causing.
                     Basically it stops the transaction if a wallet is going to have more than the max allowed. 
                     But it doesn't account for the fact that some of the transfer amount will be reduced due to fees so it's technically incorrect.
@@ -474,10 +473,10 @@ contract INVENT is Context, IERC20, Ownable {
     
     // PCSRouter Mainnet = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
     // PCSRouter Testnet = 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
-    address public PCSRouter;       // PancakeSwapRouter v2
-
-    address public deadAddress = 0x000000000000000000000000000000000000dEaD;
-    address public addLiquidityToAddress = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8;
+    
+	address public PCSRouter = 0x10ED43C718714eb63d5aA57B78B54704E256024E;       // PancakeSwapRouter v2
+	address public deadAddress = 0x000000000000000000000000000000000000dEaD;
+    
     
     modifier lockTheSwap {
         inSwapAndLiquify = true;
@@ -848,27 +847,6 @@ contract INVENT is Context, IERC20, Ownable {
 
     // Fee & Wallet Related
 
-    function fees_to_bnb_manual(uint256 tokensToConvert, address payable feeWallet, uint256 minBalanceToKeep) external onlyOwner {
-        _fees_to_bnb(tokensToConvert,feeWallet,minBalanceToKeep);
-    }
-
-    function _fees_to_bnb(uint256 tokensToConvert, address payable feeWallet, uint256 minBalanceToKeep) private {
-        // case 1: 0 tokens to convert, exit the function
-        // case 2: tokens to convert are more than the max limit
-        
-        if(tokensToConvert == 0){
-            return;
-        } 
-
-        if(tokensToConvert > _maxTxAmount){
-            tokensToConvert = _maxTxAmount;
-        }
-
-        if((tokensToConvert+minBalanceToKeep)  <= balanceOf(feeWallet)){
-            _fees_to_bnb_process(feeWallet,tokensToConvert);
-        }
-    }
-
     function _takeFee(uint256 feeAmount, address receiverWallet) private {
         uint256 reflectedReeAmount = feeAmount * _getRate();
         _balance_reflected[receiverWallet] = _balance_reflected[receiverWallet] + reflectedReeAmount;
@@ -951,28 +929,6 @@ contract INVENT is Context, IERC20, Ownable {
     
     function restoreAllFee() private {
         _setAllFees(_fee_burn_old, _fee_marketing_old, _fee_liquidity_old, _fee_buyback_old, _fee_reflection_old);
-    }
-
-    // this one sends to dead address
-    function burn_tokens_to_dead(address wallet, uint256 tokensToConvert) external onlyOwner{
-        require(msg.sender == owner() || msg.sender == wallet, "Not authorized to burn");
-
-        uint256 rTokensToConvert = tokensToConvert * _getRate();
-
-        _balance_reflected[wallet]          = _balance_reflected[wallet]  - rTokensToConvert;        
-        
-        if (_isExcluded[wallet]){
-            _balance_total[wallet]          = _balance_total[wallet]      - tokensToConvert;
-        }
-
-        if (_isExcluded[deadAddress]){
-            _balance_total[deadAddress]     = _balance_total[deadAddress]        + tokensToConvert;  
-        }
-
-        // update reflected balance of receipient
-        _balance_reflected[deadAddress]     = _balance_reflected[deadAddress]    + rTokensToConvert;
-
-        emit Transfer(wallet, deadAddress, tokensToConvert);
     }
 
     // Liquidity functions
