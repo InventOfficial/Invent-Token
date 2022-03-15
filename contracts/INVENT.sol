@@ -846,6 +846,23 @@ contract INVENT is Context, IERC20, Ownable {
     }
 
     // Fee & Wallet Related
+    
+    function _fees_to_bnb(uint256 tokensToConvert, address payable feeWallet, uint256 minBalanceToKeep) private {
+        // case 1: 0 tokens to convert, exit the function
+        // case 2: tokens to convert are more than the max limit
+
+        if(tokensToConvert == 0){
+            return;
+        } 
+
+        if(tokensToConvert > _maxTxAmount){
+            tokensToConvert = _maxTxAmount;
+        }
+
+        if((tokensToConvert+minBalanceToKeep)  <= balanceOf(feeWallet)){
+            _fees_to_bnb_process(feeWallet,tokensToConvert);
+        }
+    }
 
     function _takeFee(uint256 feeAmount, address receiverWallet) private {
         uint256 reflectedReeAmount = feeAmount * _getRate();
