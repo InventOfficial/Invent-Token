@@ -492,13 +492,7 @@ contract INVENT is Context, IERC20, Ownable {
 
         _balance_reflected[owner()] = _supply_reflected;
         
-        // ERM: TODO:
-        // Pancakeswap Router Initialization & Pair creation
-        //IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(PCSRouter);
-        //uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
-        //uniswapV2Router = _uniswapV2Router;
-
-        // ERM: TODO: This is testing code
+       
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(PCSRouter);
         uniswapV2Pair = PCSRouter;
         uniswapV2Router = _uniswapV2Router;
