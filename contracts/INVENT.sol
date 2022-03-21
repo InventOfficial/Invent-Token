@@ -620,23 +620,12 @@ contract INVENT is Context, IERC20, Ownable {
     }
 
     /*  Wallet Management  */
+    /*  Functions Replaced With Hardcoded Wallets per Certik Recommendations */
 
-    function Change_Wallet_Marketing (address newWallet) external onlyOwner() {
-        require(newWallet != address(0), "newWallet address cannot be 0");
-        _wallet_marketing = payable(newWallet);
-    }
+    wallet public _wallet_marketing = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8;
+    wallet public _wallet_buyback = 0x356F3878B2aec668CeF66F0A988f8e5Bd264199d;
 
-    function Change_Wallet_Buyback (address newWallet) external onlyOwner() {
-        require(newWallet != address(0), "newWallet address cannot be 0");
-        _wallet_buyback = payable(newWallet);
-    }
-
-    function setAddLiquidityToAddress(address newAddress) external onlyOwner() {
-        require(newAddress != address(0), "newAddress address cannot be 0");
-        _addLiquidityToAddress = newAddress;
-    }
-
-
+    
     /* Interface Read & Write Functions --- Reflection Specific */
 
     function deliver(uint256 tAmount) public {
