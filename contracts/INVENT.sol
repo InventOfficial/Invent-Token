@@ -622,8 +622,8 @@ contract INVENT is Context, IERC20, Ownable {
     /*  Wallet Management  */
     /*  Functions Replaced With Hardcoded Wallets per Certik Recommendations */
 
-    wallet public _wallet_marketing = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8;
-    wallet public _wallet_buyback = 0x356F3878B2aec668CeF66F0A988f8e5Bd264199d;
+    address public _wallet_marketing = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8;
+    address public _wallet_buyback = 0x356F3878B2aec668CeF66F0A988f8e5Bd264199d;
 
     
     /* Interface Read & Write Functions --- Reflection Specific */
