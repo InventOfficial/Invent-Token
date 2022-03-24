@@ -619,13 +619,6 @@ contract INVENT is Context, IERC20, Ownable {
             _wallet_buyback, _wallet_burn, _wallet_marketing);
     }
 
-    /*  Wallet Management  */
-    /*  Functions Replaced With Hardcoded Wallets per Certik Recommendations */
-
-    address public _wallet_marketing = 0x38FEBBBD7B96e459692C9B9FE8F8cF62653277C8;
-    address public _wallet_buyback = 0x356F3878B2aec668CeF66F0A988f8e5Bd264199d;
-
-    
     /* Interface Read & Write Functions --- Reflection Specific */
 
     function deliver(uint256 tAmount) public {
